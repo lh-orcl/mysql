@@ -9,6 +9,7 @@ ENV MYSQL_DIR             /var/lib/mysql
 
 RUN cd /tmp \
 curl https://repo.mysql.com/mysql80-community-release-el7-1.noarch.rpm -O && \
+ls -al && \
 rpm -Uvh mysql80-community-release-el7-1.noarch.rpm && \
 yum-config-manager --disable mysql80-community && \
 yum-config-manager --enable $MYSQL_VER-community && \
