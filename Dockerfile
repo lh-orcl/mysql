@@ -20,8 +20,6 @@ openssl && \
 yum clean all && \
 rm -rf /var/cache/yum
 
-RUN  setenforce 0
-
 # Configure intial MySQL install
 RUN mysqld --initialize-insecure
 RUN echo "bind-address = $MYSQL_ADDRESS" >> $MYSQL_CONF
