@@ -1,0 +1,10 @@
+#!/bin/bash
+
+exec runsvdir -P /etc/service &
+RUNSVDIR=$!
+echo "Started runsvdir, PID is ${RUNSVDIR}"
+
+trap shutdown SIGTERM SIGHUP SIGINT
+wait "${RUNSVDIR}"
+
+shutdown

@@ -7,6 +7,8 @@ ENV MYSQL_VER             mysql57
 ENV MYSQL_USER            mysql
 ENV MYSQL_DIR             /var/lib/mysql
 
+RUN ( curl -s https://packagecloud.io/install/repositories/imeyer/runit/script.rpm.sh | bash )
+
 RUN cd /tmp && \
 curl https://repo.mysql.com/mysql80-community-release-el7-1.noarch.rpm -O && \
 ls -al && \
@@ -16,17 +18,23 @@ yum-config-manager --enable $MYSQL_VER-community && \
 yum install mysql-community-server -y
 
 RUN yum install -y \
-openssl && \
+openssl \
+runit && \
 yum clean all && \
 rm -rf /var/cache/yum
+
+# Clean /tmp to reduce image size
+RUN rm -rf /tmp/*
 
 # Configure intial MySQL install
 RUN mysqld --initialize-insecure
 RUN echo "bind-address = $MYSQL_ADDRESS" >> $MYSQL_CONF
 RUN chown -R $MYSQL_USER:$MYSQL_USER $MYSQL_DIR
 
-
-RUN systemctl stop mysqld && \
-systemctl start mysqld
+ADD resources/ /
+ADD resources/start_mysql /usr/local/bin/start_mysql
 
 EXPOSE 3306
+
+# Go!
+CMD [ "/usr/local/bin/start_mysql" ]
