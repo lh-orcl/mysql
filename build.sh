@@ -4,7 +4,7 @@
 set -e
 
 DOCKER_RUN_REPO="lh-orcl"
-DOCKER_RUN_IMAGE="mysql"
+DOCKER_RUN_IMAGE="mysql57"
 DOCKER_MYSQL_NET="client-net"
 
 docker build -t	$DOCKER_RUN_REPO/$DOCKER_RUN_IMAGE:latest .
