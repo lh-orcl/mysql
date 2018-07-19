@@ -1,3 +1,5 @@
 #!/bin/bash
 
 su mysql -c '/usr/sbin/mysqld' -s '/bin/bash' &
+mysql -e "create user 'root'@'%'"
+mysql -e "grant all privileges on *.* to 'root'@'%'"
