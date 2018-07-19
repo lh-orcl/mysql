@@ -32,7 +32,8 @@ RUN echo "bind-address = $MYSQL_ADDRESS" >> $MYSQL_CONF
 RUN chown -R $MYSQL_USER:$MYSQL_USER $MYSQL_DIR
 
 ADD resources/ /
-ADD resources/start_mysql /usr/local/bin/start_mysql
+ADD resources/start_mysql /usr/local/bin/start_mysql && \
+RUN chown -R $MYSQL_USER:$MYSQL_USER /usr/local/bin/start_mysql
 
 EXPOSE 3306
 
