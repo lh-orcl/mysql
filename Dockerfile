@@ -7,11 +7,9 @@ ENV MYSQL_VER             mysql57
 ENV MYSQL_USER            mysql
 ENV MYSQL_DIR             /var/lib/mysql
 
-RUN yum install -y yum-utils
-
 RUN cd /tmp \
 curl https://repo.mysql.com/mysql80-community-release-el7-1.noarch.rpm -O && \
-sudo rpm -Uvh mysql80-community-release-el7-1.noarch.rpm && \
+rpm -Uvh mysql80-community-release-el7-1.noarch.rpm && \
 yum-config-manager --disable mysql80-community && \
 yum-config-manager --enable $MYSQL_VER-community && \
 yum install mysql-community-server -y
